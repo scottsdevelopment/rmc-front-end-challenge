@@ -1,5 +1,5 @@
 {
-  "extends": "tslint:recommended",
+  "extends": [ "tslint:recommended", "tslint-consistent-codestyle"],
   "rulesDirectory": [
     "codelyzer"
   ],
@@ -104,10 +104,15 @@
         }
       ]
     },
+    "naming-convention": [
+      true,
+      { "type": "member", "modifiers": "private", "leadingUnderscore": "require" }
+    ],
     "variable-name": {
       "options": [
         "ban-keywords",
         "check-format",
+        "allow-leading-underscore",
         "allow-pascal-case"
       ]
     },
@@ -147,6 +152,7 @@
       "element",
       "app",
       "kebab-case"
-    ]
+    ],
+    "member-access": true
   }
 }
