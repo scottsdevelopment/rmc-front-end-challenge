@@ -1,0 +1,17 @@
+<form [formGroup]="enrolleeForm" (ngSubmit)="onUpdateEnrollee($event)" class="enrollee-form">
+    <div class="enrollee-form__row">
+        <label class="enrollee-form__label">Id:</label><input class="enrollee-form__input" readonly formControlName="id"/>
+    </div>
+    <div class="enrollee-form__row">
+        <label class="enrollee-form__label">Name:</label><input class="enrollee-form__input" type="text" formControlName="name"/>
+    </div>
+    <div class="enrollee-form__row">
+        <label class="enrollee-form__label">Date of Birth:</label><input class="enrollee-form__input" type="date" formControlName="dateOfBirth"/>    
+    </div>
+    <div class="enrollee-form__row">
+        <label class="enrollee-form__label">Active:</label><input class="enrollee-form__checkbox" type="checkbox" formControlName="active"/>
+    </div>
+    <div class="enrollee-form__row">
+        <button type="submit">Save</button><button type="button" (click)="resetEnrolleeForm()">Reset</button>
+    </div>
+</form>

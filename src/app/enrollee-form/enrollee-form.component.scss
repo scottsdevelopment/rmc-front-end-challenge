@@ -1,0 +1,16 @@
+.enrollee-form {
+  &__label {
+    width: 8em;
+    display: inline-block;
+  }
+
+  &__input {
+    display: inline-block;
+    width: 20em;
+    height: 2em;
+  }
+
+  &__checkbox {
+    display: inline-block;
+  }
+}

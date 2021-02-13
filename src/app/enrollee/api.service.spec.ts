@@ -4,13 +4,13 @@ import {
   HttpClientTestingModule,
 } from '@angular/common/http/testing';
 
-import { ApiService } from './api.service';
+import { EnrolleeApiService } from './enrollee-api-service.service';
 import { HttpClient } from '@angular/common/http';
 import { EnrolleeApiRoute } from './enrollee-api-route.enum';
 import { Enrollee, IdentifiedEnrollee } from 'backend/enrollees';
 
 describe('ApiService', () => {
-  let service: ApiService;
+  let service: EnrolleeApiService;
   let httpMock: HttpTestingController;
   let httpClient: HttpClient;
 
@@ -18,7 +18,7 @@ describe('ApiService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
     });
-    service = TestBed.inject(ApiService);
+    service = TestBed.inject(EnrolleeApiService);
     httpMock = TestBed.inject(HttpTestingController);
     httpClient = TestBed.inject(HttpClient);
   });
@@ -29,21 +29,23 @@ describe('ApiService', () => {
 
   it('should return a list of all enrollees', () => {
     // Create mock enrollee data
-    const mockEnrollees = {
-      '36653835-fbe0-4c42-a93c-3e561823934f': {
+    const mockEnrollees: IdentifiedEnrollee[] = [
+      {
+        id: '36653835-fbe0-4c42-a93c-3e561823934f',
         active: true,
         name: 'Gabe Newell',
         dateOfBirth: '1962-11-3',
       },
-      'ed9f9e35-9767-4586-a19b-903661aa859d': {
+      {
+        id: 'ed9f9e35-9767-4586-a19b-903661aa859d',
         active: true,
         name: 'Todd Howard',
         dateOfBirth: '1971-04-25',
       },
-    };
+    ];
 
     // Create expectation about mock data request
-    service.getEnrollees().subscribe((enrollees) => {
+    service.getAll().subscribe((enrollees) => {
       expect(enrollees).toEqual(mockEnrollees);
     });
 
@@ -70,7 +72,7 @@ describe('ApiService', () => {
       dateOfBirth: '1962-11-3',
     };
 
-    service.getEnrolleeById(mockEnrollee.id).subscribe((enrollee) => {
+    service.getById(mockEnrollee.id).subscribe((enrollee) => {
       expect(enrollee).toEqual(mockEnrollee);
     });
 

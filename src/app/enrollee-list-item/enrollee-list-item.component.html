@@ -1,0 +1,7 @@
+<div class="enrollee" (click)="selectEnrollee()">
+    <div class="enrollee__activeIcon" [class.enrollee__activeIcon--inactive]="enrollee.active === false">◉</div>
+    <div class="enrollee__name">{{ enrollee.name }}</div>
+    <div class="enrollee__id">Id: {{ enrollee.id }}</div>
+    <div class="enrollee__dateOfBirth">Date of Birth: {{ enrollee.dateOfBirth }}</div>
+    <div class="enrollee__activeText">Active: {{ enrollee.active ? 'Yes' : 'No' }}</div>
+</div>

@@ -1,29 +1,9 @@
 <header class="header">Enrollee List</header>
 <aside class="enrollee-list">
-    <div class="enrollee" *ngFor="let enrollee of (mappedEnrollees$ | async)">
-        <div class="enrollee__active" [class.enrollee__active--inactive]="enrollee.active === false">◉</div>
-        <div class="enrollee__name">{{ enrollee.name }}</div>
-        <div class="enrollee__id">Id: {{ enrollee.id }}</div>
-        <div class="enrollee__dateOfBirth">Date of Birth: {{ enrollee.dateOfBirth }}</div>
-        <div class="enrollee__dateOfBirth">Active: {{ enrollee.active ? 'True' : 'False' }}</div>
-    </div> 
+    <div *ngFor="let enrollee of (enrollees$ | async)">
+        <app-enrollee-list-item [enrollee]="enrollee" (selectEnrolleeEvent)="selectEnrollee($event)"></app-enrollee-list-item>
+    </div>
 </aside>
 <aside class="enrollee-editor">
-    <form class="enrollee-form">
-        <div class="enrollee-form__row">
-            <label class="enrollee-form__label">Id:</label><input class="enrollee-form__input" readonly/>
-        </div>
-        <div class="enrollee-form__row">
-            <label class="enrollee-form__label">Name:</label><input class="enrollee-form__input" type="text"/>
-        </div>
-        <div class="enrollee-form__row">
-            <label class="enrollee-form__label">Date of Birth:</label><input class="enrollee-form__input" type="date"/>    
-        </div>
-        <div class="enrollee-form__row">
-            <label class="enrollee-form__label">Active:</label><input class="enrollee-form__checkbox" type="checkbox"/>
-        </div>
-        <div class="enrollee-form__row">
-            <button type="submit">Save</button><button type="reset">Reset</button>
-        </div>
-    </form>
+    <app-enrollee-form [enrollee]="enrolleeSelected"></app-enrollee-form>
 </aside>
