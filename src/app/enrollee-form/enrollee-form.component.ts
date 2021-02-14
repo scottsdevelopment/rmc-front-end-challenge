@@ -1,37 +1,45 @@
 import { formatDate } from '@angular/common';
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Event } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { IdentifiedEnrollee } from 'backend/enrollees';
-import { empty } from 'rxjs';
-import { EnrolleeApiService } from '../enrollee/enrollee-api-service.service';
+import { tap } from 'rxjs/operators';
 import { EnrolleeActions } from '../state/enrollee.actions';
-const emptyEnrollee = {
-  id: '',
-  name: '',
-  dateOfBirth: '',
-  active: false,
-};
+import { getSelectedEnrollee } from '../state/enrollee.selectors';
+import { emptyEnrollee } from '../state/enrollee.state';
+
 @Component({
   selector: 'app-enrollee-form',
   templateUrl: './enrollee-form.component.html',
   styleUrls: ['./enrollee-form.component.scss'],
 })
-export class EnrolleeFormComponent implements OnChanges {
-  @Input() public enrollee: IdentifiedEnrollee = emptyEnrollee;
+export class EnrolleeFormComponent implements OnInit, OnDestroy {
+  public enrollee: IdentifiedEnrollee = emptyEnrollee;
 
   public enrolleeForm = new FormGroup({
-    id: new FormControl(''),
-    name: new FormControl(''),
-    dateOfBirth: new FormControl(''),
-    active: new FormControl(''),
+    id: new FormControl(emptyEnrollee.id),
+    name: new FormControl(emptyEnrollee.name),
+    dateOfBirth: new FormControl(emptyEnrollee.dateOfBirth),
+    active: new FormControl(emptyEnrollee.active),
   });
 
   constructor(private readonly _store: Store) {}
 
-  public ngOnChanges(): void {
-    this.resetEnrolleeForm();
+  public ngOnInit(): void {
+    this._store
+      .select(getSelectedEnrollee)
+      .pipe(
+        tap((enrolleeSelected) => {
+          this.enrollee = enrolleeSelected;
+          this.resetEnrolleeForm();
+        }),
+      )
+      .subscribe();
+  }
+
+  public ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
   }
 
   public onUpdateEnrollee(event: Event): void {

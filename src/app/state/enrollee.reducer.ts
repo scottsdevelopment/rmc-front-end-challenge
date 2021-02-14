@@ -1,26 +1,39 @@
-// tslint:disable no-shadowed-variable
-
 import { createReducer, on } from '@ngrx/store';
-import { IdentifiedEnrollee } from 'backend/enrollees';
 import {
   retrievedEnrolleeList,
+  selectEnrollee,
   updateEnrolleeSuccess,
 } from './enrollee.actions';
+import { emptyEnrollee, EnrolleeState } from './enrollee.state';
 
-export const initialState: IdentifiedEnrollee[] = [];
+export const initialState: EnrolleeState = {
+  enrollees: [],
+  enrolleeSelected: emptyEnrollee,
+};
 
 export const enrolleesReducer = createReducer(
   initialState,
-  on(retrievedEnrolleeList, (_state, { enrollees }) => {
-    return enrollees;
+  on(retrievedEnrolleeList, (state, { enrollees }) => {
+    return { ...state, enrollees };
   }),
-  on(updateEnrolleeSuccess, (enrollees, { enrollee }) => {
-    return enrollees.map((existingEnrollee) => {
-      if (existingEnrollee.id === enrollee.id) {
-        return enrollee;
-      } else {
-        return existingEnrollee;
-      }
-    });
+  on(updateEnrolleeSuccess, (state, { enrollee }) => {
+    return {
+      ...state,
+      enrollees: state.enrollees.map((existingEnrollee) => {
+        if (existingEnrollee.id === enrollee.id) {
+          return enrollee;
+        } else {
+          return existingEnrollee;
+        }
+      }),
+    };
+  }),
+  on(selectEnrollee, (state, { enrolleeId }) => {
+    return {
+      ...state,
+      enrolleeSelected:
+        state.enrollees.find((enrollee) => enrollee.id === enrolleeId) ??
+        emptyEnrollee,
+    };
   }),
 );

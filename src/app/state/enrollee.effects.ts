@@ -38,4 +38,17 @@ export class EnrolleeEffects {
       })),
     ),
   );
+
+  public selectEnrollee$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(EnrolleeActions.SelectEnrollee),
+      mergeMap((action: { enrolleeId: string }) =>
+        this._enrolleeApiService.getById(action.enrolleeId),
+      ),
+      map((enrollee: IdentifiedEnrollee) => ({
+        type: EnrolleeActions.UpdateEnrolleeSuccess,
+        enrollee,
+      })),
+    ),
+  );
 }

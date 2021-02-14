@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { IdentifiedEnrollee } from 'backend/enrollees';
+import { EnrolleeActions } from '../state/enrollee.actions';
 const emptyEnrollee = {
   id: '',
   name: '',
@@ -14,10 +16,13 @@ const emptyEnrollee = {
 export class EnrolleeListItemComponent implements OnInit {
   @Input() public enrollee: IdentifiedEnrollee = emptyEnrollee;
   @Output() public selectEnrolleeEvent = new EventEmitter<IdentifiedEnrollee>();
-  constructor() {}
+  constructor(private readonly _store: Store) {}
   public ngOnInit(): void {}
 
   public selectEnrollee(): void {
-    this.selectEnrolleeEvent.emit(this.enrollee);
+    this._store.dispatch({
+      type: EnrolleeActions.SelectEnrollee,
+      enrolleeId: this.enrollee.id,
+    });
   }
 }

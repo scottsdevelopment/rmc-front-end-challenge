@@ -6,6 +6,7 @@ export enum EnrolleeActions {
   RetrievedEnrolleeList = '[Enrollee API] Retrieved Enrollee List',
   UpdateEnrollee = '[Enrollee API] Update Enrollee',
   UpdateEnrolleeSuccess = '[Enrollee API] Update Enrollee Success',
+  SelectEnrollee = '[Enrollee] Select Enrollee',
 }
 
 export const requestEnrolleeList = createAction(
@@ -25,4 +26,9 @@ export const updateEnrollee = createAction(
 export const updateEnrolleeSuccess = createAction(
   EnrolleeActions.UpdateEnrolleeSuccess,
   props<{ enrollee: IdentifiedEnrollee }>(),
+);
+
+export const selectEnrollee = createAction(
+  EnrolleeActions.SelectEnrollee,
+  props<{ enrolleeId: string }>(),
 );
