@@ -18,12 +18,8 @@ const emptyEnrollee = {
 })
 export class AppComponent {
   public enrollees$: Observable<IdentifiedEnrollee[]>;
-  public enrolleeSelected: IdentifiedEnrollee = emptyEnrollee;
+
   constructor(private readonly _store: Store) {
     this.enrollees$ = this._store.pipe(select(getAllEnrollees));
-  }
-
-  public selectEnrollee(enrollee: IdentifiedEnrollee): void {
-    this.enrolleeSelected = enrollee;
   }
 }

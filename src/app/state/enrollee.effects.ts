@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EnrolleeApiService } from '../enrollee/enrollee-api-service.service';
+import { EnrolleeApiService } from '../enrollee/enrollee-api.service';
 import { EnrolleeActions } from './enrollee.actions';
 import { mergeMap, map, exhaustMap, tap } from 'rxjs/operators';
 import { IdentifiedEnrollee } from 'backend/enrollees';

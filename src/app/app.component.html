@@ -1,7 +1,7 @@
 <header class="header">Enrollee List</header>
 <aside class="enrollee-list">
     <div *ngFor="let enrollee of (enrollees$ | async)">
-        <app-enrollee-list-item [enrollee]="enrollee" (selectEnrolleeEvent)="selectEnrollee($event)"></app-enrollee-list-item>
+        <app-enrollee-list-item [enrollee]="enrollee"></app-enrollee-list-item>
     </div>
 </aside>
 <aside class="enrollee-editor">

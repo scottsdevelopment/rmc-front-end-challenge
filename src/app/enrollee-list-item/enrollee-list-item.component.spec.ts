@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnrolleeListItemComponent } from './enrollee-list-item.component';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
 
 describe('EnrolleeListItemComponent', () => {
   let component: EnrolleeListItemComponent;
@@ -8,9 +9,9 @@ describe('EnrolleeListItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EnrolleeListItemComponent ]
-    })
-    .compileComponents();
+      declarations: [EnrolleeListItemComponent],
+      providers: [provideMockStore()],
+    }).compileComponents();
   });
 
   beforeEach(() => {

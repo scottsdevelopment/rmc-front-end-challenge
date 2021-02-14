@@ -4,7 +4,7 @@ import {
   HttpClientTestingModule,
 } from '@angular/common/http/testing';
 
-import { EnrolleeApiService } from './enrollee-api-service.service';
+import { EnrolleeApiService } from './enrollee-api.service';
 import { HttpClient } from '@angular/common/http';
 import { EnrolleeApiRoute } from './enrollee-api-route.enum';
 import { Enrollee, IdentifiedEnrollee } from 'backend/enrollees';
