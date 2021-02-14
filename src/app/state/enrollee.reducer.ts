@@ -26,6 +26,10 @@ export const enrolleesReducer = createReducer(
           return existingEnrollee;
         }
       }),
+      enrolleeSelected:
+        state.enrolleeSelected.id === enrollee.id
+          ? enrollee
+          : state.enrolleeSelected,
     };
   }),
   on(selectEnrollee, (state, { enrolleeId }) => {
