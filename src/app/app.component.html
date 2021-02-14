@@ -5,5 +5,5 @@
     </div>
 </aside>
 <aside class="enrollee-editor">
-    <app-enrollee-form [enrollee]="enrolleeSelected"></app-enrollee-form>
+    <app-enrollee-form *ngIf="enrolleeSelected.id !== ''" [enrollee]="enrolleeSelected"></app-enrollee-form>
 </aside>

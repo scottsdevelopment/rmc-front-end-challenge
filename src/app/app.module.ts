@@ -8,7 +8,6 @@ import { EnrolleeFormComponent } from './enrollee-form/enrollee-form.component';
 import { EnrolleeListItemComponent } from './enrollee-list-item/enrollee-list-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store, StoreModule } from '@ngrx/store';
-import { collectionReducer } from './state/collection.reducer';
 import { enrolleesReducer } from './state/enrollee.reducer';
 import { AppState } from './state/app.state';
 import {
@@ -30,7 +29,7 @@ import { EffectsModule } from '@ngrx/effects';
     HttpClientModule,
     ReactiveFormsModule,
     StoreModule.forRoot({
-      enrollee: enrolleesReducer,
+      enrollees: enrolleesReducer,
     }),
     EffectsModule.forRoot([EnrolleeEffects]),
   ],
@@ -39,7 +38,6 @@ import { EffectsModule } from '@ngrx/effects';
       provide: APP_INITIALIZER,
       useFactory: (store: Store<AppState>) => {
         return () => {
-          console.log('App init -> LoadEnrolleesRequested');
           store.dispatch(requestEnrolleeList());
         };
       },

@@ -7,6 +7,6 @@ export const selectEnrollees = createSelector(
   (enrollees: Array<IdentifiedEnrollee>) => enrollees,
 );
 
-export const getAllEnrollees = createFeatureSelector<AppState, string[]>(
+export const getAllEnrollees = createFeatureSelector<IdentifiedEnrollee[]>(
   'enrollees',
 );
