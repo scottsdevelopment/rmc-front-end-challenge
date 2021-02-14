@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
+import { selectEnrollee } from '../state/enrollee.actions';
+import { getSelectedEnrollee } from '../state/enrollee.selectors';
+import { emptyEnrollee } from '../state/enrollee.state';
 
 import { EnrolleeFormComponent } from './enrollee-form.component';
 
@@ -11,7 +14,14 @@ describe('EnrolleeFormComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [EnrolleeFormComponent],
-      providers: [provideMockStore()],
+      providers: [
+        provideMockStore({
+          initialState: {
+            enrollees: { enrolleees: [], enrolleeSelected: emptyEnrollee },
+          },
+          selectors: [{ selector: getSelectedEnrollee, value: emptyEnrollee }],
+        }),
+      ],
     }).compileComponents();
   });
 
