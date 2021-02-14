@@ -1,9 +1,12 @@
-<header class="header">Enrollee List</header>
+
 <aside class="enrollee-list">
+    <header class="header">Enrollee List</header>
     <div *ngFor="let enrollee of (enrollees$ | async)">
         <app-enrollee-list-item [enrollee]="enrollee"></app-enrollee-list-item>
     </div>
 </aside>
+
 <aside class="enrollee-editor">
+    <header class="header">Enrollee Editor</header>
     <app-enrollee-form></app-enrollee-form>
 </aside>

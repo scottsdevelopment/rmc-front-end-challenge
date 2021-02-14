@@ -4,7 +4,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Event } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { IdentifiedEnrollee } from 'backend/enrollees';
-import { tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 import { EnrolleeActions } from '../state/enrollee.actions';
 import { getSelectedEnrollee } from '../state/enrollee.selectors';
 import { emptyEnrollee } from '../state/enrollee.state';
@@ -16,6 +17,7 @@ import { emptyEnrollee } from '../state/enrollee.state';
 })
 export class EnrolleeFormComponent implements OnInit, OnDestroy {
   public enrollee: IdentifiedEnrollee = emptyEnrollee;
+  private _destroyed$: Subject<void> = new Subject();
 
   public enrolleeForm = new FormGroup({
     id: new FormControl(emptyEnrollee.id),
@@ -34,22 +36,17 @@ export class EnrolleeFormComponent implements OnInit, OnDestroy {
           this.enrollee = enrolleeSelected;
           this.resetEnrolleeForm();
         }),
+        takeUntil(this._destroyed$),
       )
       .subscribe();
   }
 
   public ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    this._destroyed$.next(undefined);
+    this._destroyed$.complete();
   }
 
   public onUpdateEnrollee(event: Event): void {
-    /* this._enrolleeService
-      .updateEnrollee(this.enrollee.id, {
-        name: this.enrolleeForm.get('name')?.value,
-        dateOfBirth: this.enrolleeForm.get('dateOfBirth')?.value,
-        active: this.enrolleeForm.get('active')?.value,
-      })
-      .subscribe(); */
     const enrollee = {
       id: this.enrollee.id,
       name: this.enrolleeForm.get('name')?.value,
